@@ -5,7 +5,6 @@ export class LoggerService {
 
     constructor() {
         this.logger = new Logger({
-
         })
     }
     log(...args:unknown[]){
@@ -18,8 +17,5 @@ export class LoggerService {
     warn(...args:unknown[]){
         this.logger.warn(...args)
     }
-
-
-
 
 }
