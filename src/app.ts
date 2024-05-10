@@ -3,6 +3,7 @@ import {Server} from "http"
 import {LoggerService} from "./logger/logger.service";
 import {UserController} from "./user/user.controller";
 import {ExceptionFilter} from "./errors/exception.filter";
+import {ILogger} from "./logger/logger.interface";
 
 
 
@@ -15,7 +16,9 @@ export class App {
     userController:UserController;
     exceptionFilter:ExceptionFilter;
 
-    constructor(userController:UserController, logger:LoggerService, exceptionFilter:ExceptionFilter ) {
+    constructor(userController:UserController,
+                logger:ILogger,
+                exceptionFilter:ExceptionFilter ) {
         this.app = express()
         this.port = parseInt(process.env.PORT) || 3000
         this.userController = userController;

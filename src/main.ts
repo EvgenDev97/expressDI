@@ -7,12 +7,15 @@ import * as dotenv from "dotenv";
 
 
 dotenv.config();
+
+//composition root
 async function bootstrap(){
     const logger = new LoggerService()
     const app = new App(
         new UserController(logger),
         logger,
-        new ExceptionFilter(logger))
+        new ExceptionFilter(logger)
+    )
     await app.init()
 }
 
