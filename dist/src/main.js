@@ -3,10 +3,14 @@ import { ExceptionFilter } from "./errors/exception.filter";
 import { LoggerService } from "./logger/logger.service";
 import { UserController } from "./user/user.controller";
 import * as dotenv from "dotenv";
+import { Container } from "inversify";
+import { TYPES } from "./types";
 dotenv.config();
-async function bootstrap() {
-    const logger = new LoggerService();
-    const app = new App(new UserController(logger), logger, new ExceptionFilter(logger));
-    await app.init();
-}
-bootstrap().then();
+const appContainer = new Container();
+appContainer.bind(TYPES.ILogger).to(LoggerService);
+appContainer.bind(TYPES.ExceptionFilter).to(ExceptionFilter);
+appContainer.bind(TYPES.UserController).to(UserController);
+appContainer.bind(TYPES.Application).to(App);
+const app = appContainer.get(TYPES.Application);
+await app.init();
+export { app, appContainer };
